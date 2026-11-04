@@ -11,6 +11,21 @@ at `../vlibc`). Both are verified with cerastes, a deductive verifier for C and 
 Status: only the license files exist so far. There is no build system, test suite or CI yet. Add their commands here
 when they land.
 
+## Code style
+
+The owner's Boost libraries' style (owner, 2026-11-04; the models are `boost/libs/int128`, `decimal` and `charconv`), for
+every C and C++ file here, headers and tests included:
+- Allman braces everywhere: functions, structures, enumerations, `if`/`else`/`for`/`while`/`do`/`switch` put `{` on a line
+  of its own. Every control statement has braces, even around one line. `else` and `else if` start their own line after
+  the `}`.
+- 4-space indentation, no tabs. In a `switch` the `case` labels are indented one level and their statements another.
+  Preprocessor directives inside a function are indented to the code's level, with a blank line around them.
+- `*` and `&` belong to the type: `unsigned char* p`, `const char* first`, `void* vlibc_malloc(size_t __size)`; one
+  declarator per declaration.
+- Unsigned literals carry `U` (`1U << 20U`); C++ initializes with braces (`const std::uint64_t lo {a & UINT32_MAX};`).
+- `if (`, `for (`, `while (`, `switch (` with a space; none between a function's name and `(`. Lines up to about 120
+  columns.
+
 ## Requirements for every function
 
 - **Languages:** each function compiles and behaves the same as C23 and later, and as C++20 and later. Shared headers
