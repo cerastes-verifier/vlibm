@@ -21,6 +21,12 @@ when they land.
   (`LICENSE-APACHE`), and its header comment carries
   `SPDX-License-Identifier: BSL-1.0 OR Apache-2.0 WITH LLVM-exception`.
 - **Contracts:** each function has a cerastes contract that states what it computes, not only that it is safe to call.
+- **Names** (cerastes decision 0048, 2026-11-04): each implementation is named `vlibm_<name>` after the C standard
+  function it implements (`vlibm_sqrt`, `vlibm_sqrtf`, `vlibm_sqrtl`). It is declared beside the standard name, with C
+  linkage in both languages and the standard name's contract token for token. vlibm never defines, aliases, interposes
+  or `#define`s a name of the standard library (C23 7.1.3). A program that calls `sqrt` runs the platform's
+  implementation under vlibm's contract; one that calls `vlibm_sqrt` runs vlibm's code, verified once cerastes reads
+  floating point. vlibc does the same with `vlibc_`.
 
 ## Cerastes annotations
 
